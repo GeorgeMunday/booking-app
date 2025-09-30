@@ -1,0 +1,52 @@
+﻿<Window x:Class="Andys_Project.Dashboard" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:Andys_Project" mc:Ignorable="d" Title="Dashboard" Height="500" Width="800" WindowStartupLocation="CenterScreen" Background="#f9f9f9">
+    <Grid>
+        <Rectangle Fill="#4CAF50" Height="60" VerticalAlignment="Top"/>
+        <TextBlock Text="Dashboard" Foreground="White" FontSize="24" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+        <Grid Margin="0,60,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderBrush="#ddd" BorderThickness="1" Margin="10" CornerRadius="8" Background="White" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Your booking begins here!" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="UserInfoTextBlock" Text="User info will appear here" FontSize="16" Margin="0,0,0,5" Height="133" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="" Text="Yout bookings will appear here" FontSize="16" Height="133" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="#ddd" BorderThickness="1" Margin="10" CornerRadius="8" Background="White" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Data Entry" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="Item:" VerticalAlignment="Center" Width="80"/>
+                        <ComboBox x:Name="ItemComboBox" Width="165" SelectionChanged="ItemComboBox_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Description:" VerticalAlignment="Top" Width="80"/>
+                        <TextBox x:Name="ItemDescriptionTextBox" Width="165" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Quantity:" VerticalAlignment="Center" Width="80"/>
+                        <TextBox x:Name="QuantityTextBox" Width="60" Height="30" Text="1" HorizontalContentAlignment="Stretch"/>
+                        <TextBlock Text=" In Storage:" VerticalAlignment="Center" Margin="10,0,0,0" Width="80"/>
+                        <TextBox x:Name="InStorageTextBlock" Width="60" Height="30" Text="0" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Date:" VerticalAlignment="Center" Width="80"/>
+                        <DatePicker x:Name="DatePickerControl" Width="165"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Room:" VerticalAlignment="Center" Width="80"/>
+                        <ComboBox x:Name="RoomComboBox" Width="165" SelectedIndex="0">
+                            <ComboBoxItem Content="Room 101"/>
+                            <ComboBoxItem Content="Room 102"/>
+                            <ComboBoxItem Content="Room 103"/>
+                            <ComboBoxItem Content="Room 104"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <Button x:Name="SubmitButton" Content="Submit" Height="40" Margin="0,20,0,0" Background="#4CAF50" Foreground="White" FontWeight="Bold" HorizontalAlignment="Stretch" Width="269" Click="SubmitButton_Click"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

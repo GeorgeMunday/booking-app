@@ -1,0 +1,102 @@
+﻿<Window x:Name="window1" x:Class="Andys_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Andys_Project"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800" Background="#f9f9f9" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6" 
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#45a049"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Button x:Name="switchStateBtn" Content="Register" HorizontalAlignment="Left" Width="120" Height="40"
+                VerticalAlignment="Top" Click="switchStateBtn_Click"/>
+        <Grid Margin="150,60,150,60" x:Name="loginForm" Visibility="Visible">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="300">
+                <TextBlock x:Name="loginHeading" Text="Login" 
+                           FontSize="36" FontWeight="Bold" 
+                           Foreground="#333" TextAlignment="Center" Margin="0,0,0,20"/>
+                <Label Content="Username"/>
+                <TextBox x:Name="loginUsername"/>
+                <Label Content="Password"/>
+                <PasswordBox x:Name="loginPassword"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="150,60,150,60" x:Name="registerForm" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="300">
+                <TextBlock x:Name="registerHeading" Text="Register" 
+                           FontSize="36" FontWeight="Bold" 
+                           Foreground="#333" TextAlignment="Center" Margin="0,0,0,20"/>
+                <Label Content="Username"/>
+                <TextBox x:Name="registerUsername"/>
+                <Label Content="Password"/>
+                <PasswordBox x:Name="regesterPassowrd"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="100,60,100,60" x:Name="userForm" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400">
+                <TextBlock x:Name="userHeading" Text="User Info" 
+                           FontSize="36" FontWeight="Bold" 
+                           Foreground="#333" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <TextBox x:Name="userForeName" Width="180" Text="Fore Name"/>
+                    <TextBox x:Name="userLastName" Width="180" Margin="20,0,0,0" Text="Last Name"/>
+                </StackPanel>
+                <TextBox x:Name="userDob" Width="190" Text="DOB"/>
+            </StackPanel>
+        </Grid>
+        <Button Content="Submit" HorizontalAlignment="Center" Width="150" Height="45" 
+                VerticalAlignment="Bottom" Margin="0,0,0,30" 
+                Click="Submit_Click"/>
+    </Grid>
+</Window>
