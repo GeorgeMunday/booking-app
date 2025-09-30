@@ -1,40 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using Andys_Project.db;
-
-
 
 namespace Andys_Project
 {
+    public class ItemData
+    {
+        public string Name { get; set; }
+        public int Amount { get; set; }
+        public string Description { get; set; }
+    }
+
     public partial class Dashboard : Window
     {
         private dbServices db;
         private string username;
+
         public Dashboard(string username)
         {
             this.ResizeMode = ResizeMode.NoResize;
             InitializeComponent();
             db = new dbServices();
             this.username = username;
+
             grabItemData(db.Connection);
             grabUserData(db.Connection);
-
+            LoadUserBookings(db.Connection);
         }
 
-        private void  grabUserData(SQLiteConnection connection)
+        private void grabUserData(SQLiteConnection connection)
         {
             string query = "SELECT FirstName, LastName, DOB FROM Users WHERE Username=@Username";
             using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
@@ -47,6 +44,8 @@ namespace Andys_Project
                         string firstName = reader.GetString(0);
                         string lastName = reader.GetString(1);
                         string dob = reader.GetString(2);
+
+                        UserInfoTextBlock.Text = $"Name: {firstName} {lastName}\nDOB: {dob}";
                     }
                 }
             }
@@ -64,30 +63,25 @@ namespace Andys_Project
                         string name = reader.GetString(0);
                         int amount = reader.GetInt32(1);
                         string description = reader.GetString(2);
+
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
                         comboBoxItem.Content = name;
-                        comboBoxItem.Tag = new { Amount = amount, Description = description };
+                        comboBoxItem.Tag = new ItemData { Name = name, Amount = amount, Description = description };
 
                         ItemComboBox.Items.Add(comboBoxItem);
-                       
                     }
-
-
                 }
             }
-
         }
 
         private void ItemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ItemComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag != null)
+            if (ItemComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag is ItemData data)
             {
-                dynamic data = selectedItem.Tag;
                 ItemDescriptionTextBox.Text = data.Description;
                 InStorageTextBlock.Text = data.Amount.ToString();
             }
         }
-
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -140,6 +134,31 @@ namespace Andys_Project
             }
         }
 
+        private void LoadUserBookings(SQLiteConnection connection)
+        {
+            string query = "SELECT Item, Amount, Date FROM Bookings WHERE Name=@Username";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@Username", username);
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    List<string> bookings = new List<string>();
+
+                    while (reader.Read())
+                    {
+                        string item = reader.GetString(0);
+                        int amount = reader.GetInt32(1);
+                        string date = reader.GetString(2);
+
+                        bookings.Add($"Item: {item}\nQuantity: {amount}\nDate: {date}\n");
+                    }
+
+                    if (bookings.Count > 0)
+                        headin.Text = string.Join("\n\n", bookings);
+                    else
+                        headin.Text = "No bookings yet.";
+                }
+            }
+        }
     }
 }
-

@@ -11,7 +11,7 @@
                 <StackPanel>
                     <TextBlock Text="Your booking begins here!" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
                     <TextBlock x:Name="UserInfoTextBlock" Text="User info will appear here" FontSize="16" Margin="0,0,0,5" Height="133" TextWrapping="Wrap"/>
-                    <TextBlock x:Name="" Text="Yout bookings will appear here" FontSize="16" Height="133" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="headin" Text="Yout bookings will appear here" FontSize="16" Height="133" TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="1" BorderBrush="#ddd" BorderThickness="1" Margin="10" CornerRadius="8" Background="White" Padding="15">
