@@ -28,7 +28,7 @@ namespace Andys_Project
 
             grabItemData(db.Connection);
             grabUserData(db.Connection);
-            LoadUserBookings(db.Connection);
+            UserBookings(db.Connection);
         }
 
         private void grabUserData(SQLiteConnection connection)
@@ -45,7 +45,7 @@ namespace Andys_Project
                         string lastName = reader.GetString(1);
                         string dob = reader.GetString(2);
 
-                        UserInfoTextBlock.Text = $"Name: {firstName} {lastName}\nDOB: {dob}";
+                        UserInfoTextBlock.Text = $"Name: {firstName} {lastName}";
                     }
                 }
             }
@@ -122,10 +122,12 @@ namespace Andys_Project
                     return;
                 }
 
+
                 try
                 {
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Booking submitted successfully!");
+                    UserBookings(db.Connection);
                 }
                 catch (Exception ex)
                 {
@@ -134,7 +136,7 @@ namespace Andys_Project
             }
         }
 
-        private void LoadUserBookings(SQLiteConnection connection)
+        private void UserBookings(SQLiteConnection connection)
         {
             string query = "SELECT Item, Amount, Date FROM Bookings WHERE Name=@Username";
             using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
@@ -150,13 +152,33 @@ namespace Andys_Project
                         int amount = reader.GetInt32(1);
                         string date = reader.GetString(2);
 
-                        bookings.Add($"Item: {item}\nQuantity: {amount}\nDate: {date}\n");
+                        bookings.Add($"Item: {item} Quantity: {amount} Date: {date}");
                     }
 
                     if (bookings.Count > 0)
-                        headin.Text = string.Join("\n\n", bookings);
+                        Bookings.Text = string.Join("\n", bookings);
                     else
-                        headin.Text = "No bookings yet.";
+                        Bookings.Text = "No bookings yet.";
+                }
+            }
+        }
+
+        private void DeleteBookings_Click(object sender, RoutedEventArgs e)
+        {
+            SQLiteConnection connection = db.Connection;
+            string query = "DELETE FROM Bookings WHERE Name=@Username";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@Username", username);
+                try
+                {
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} bookings deleted successfully.");
+                    UserBookings(connection);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting bookings: " + ex.Message);
                 }
             }
         }

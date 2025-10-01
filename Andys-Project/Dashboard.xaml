@@ -10,8 +10,10 @@
             <Border Grid.Column="0" BorderBrush="#ddd" BorderThickness="1" Margin="10" CornerRadius="8" Background="White" Padding="15">
                 <StackPanel>
                     <TextBlock Text="Your booking begins here!" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <TextBlock x:Name="UserInfoTextBlock" Text="User info will appear here" FontSize="16" Margin="0,0,0,5" Height="133" TextWrapping="Wrap"/>
-                    <TextBlock x:Name="headin" Text="Yout bookings will appear here" FontSize="16" Height="133" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="UserInfoTextBlock" Text="User info will appear here" FontSize="16" Margin="0,0,0,5" Height="34" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="Header" Text="Bookings" FontSize="16" Margin="0,0,0,5" Height="35" TextAlignment="Center" Foreground="White" Background="#4CAF50"/>
+                    <TextBox x:Name="Bookings" Text="Yout bookings will appear here" FontSize="16" Height="179" TextWrapping="WrapWithOverflow"/>
+                    <Button x:Name="deleteBookings" Content="Remove Bookings" Height="40" Background="#4CAF50" Foreground="White" FontWeight="Bold" Width="268" Click="DeleteBookings_Click" Margin="0,10,0,0"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="1" BorderBrush="#ddd" BorderThickness="1" Margin="10" CornerRadius="8" Background="White" Padding="15">
