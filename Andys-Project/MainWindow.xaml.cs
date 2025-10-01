@@ -5,7 +5,7 @@ using Andys_Project.db;
 
 namespace Andys_Project
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         private dbServices db;
 
@@ -18,16 +18,16 @@ namespace Andys_Project
         string lastName;
         string dob;
 
-        public MainWindow()
+        public MainWindow() // constructor
         {
-            this.ResizeMode = ResizeMode.NoResize;
-            InitializeComponent();
+            this.ResizeMode = ResizeMode.NoResize; // disable window resizing
+            InitializeComponent(); // initialize WPF components
 
             db = new dbServices(); 
-            CreateTableIfNotExists(db.Connection);
+            CreateTableIfNotExists(db.Connection); // ensure the Users table exists
         }
 
-        private void CreateTableIfNotExists(SQLiteConnection connection)
+        private void CreateTableIfNotExists(SQLiteConnection connection) // create Users table if it doesn't exist
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Users (
@@ -39,13 +39,13 @@ namespace Andys_Project
                     DOB TEXT
                 )";
 
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, connection))
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, connection)) // execute the command
             {
                 cmd.ExecuteNonQuery();
             }
         }
 
-        private void loginUser(string username, string password)
+        private void loginUser(string username, string password) // login user method
         {
             Dashboard Frmdashboard = new Dashboard(username);
             string query = "SELECT COUNT(1) FROM Users WHERE Username=@Username AND Password=@Password";
@@ -67,7 +67,7 @@ namespace Andys_Project
             }
         }
 
-        private void registerUser(string username, string password, string forName, string lastName, string dob)
+        private void registerUser(string username, string password, string forName, string lastName, string dob) // register user method
         {
             string query = "INSERT INTO Users (Username, Password, FirstName, LastName, DOB) VALUES (@Username, @Password, @FirstName, @LastName, @DOB)";
 
@@ -90,9 +90,7 @@ namespace Andys_Project
                 }
             }
         }
-
-        // Form methods
-        private void switchStateBtn_Click(object sender, RoutedEventArgs e)
+        private void switchStateBtn_Click(object sender, RoutedEventArgs e) // switch between login and register forms
         {
             isLogin = !isLogin;
 
@@ -112,7 +110,7 @@ namespace Andys_Project
             }
         }
 
-        private void Submit_Click(object sender, RoutedEventArgs e)
+        private void Submit_Click(object sender, RoutedEventArgs e) // handle submit button click
         {
             if (isLogin)
             {
